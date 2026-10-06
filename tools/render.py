@@ -14,6 +14,8 @@ BLOBS = {
     "2819d2ad73cbbc96e316763654be92bd": IMG / "halloween_logo.png",
 }
 BLOBS.update({k: pathlib.Path(v) for k, v in (l.split("=", 1) for l in os.environ.get("EXTRA_BLOBS", "").split(";") if "=" in l)})
+# printer's unprintable border: 1/4 inch at 96 px/in
+SAFE_PX = 24
 FONTS = [
     "zilla-slab/500.css", "zilla-slab/600.css", "zilla-slab/700.css",
     "libre-franklin/400.css", "libre-franklin/500.css", "libre-franklin/600.css", "libre-franklin/400-italic.css",
@@ -50,6 +52,24 @@ def main():
               kids.forEach(k => k.style.flexShrink = '0'); const need = r.scrollHeight;
               kids.forEach((k, i) => k.style.flexShrink = prev[i]); return need; }""")
             print(f"{pathlib.Path(f).name}: needs {over}px of 1056")
+            # anything other than the page background inside the printer's no-print zone
+            zone = SAFE_PX
+            # only things that put ink on paper: text, images, svgs, boxes with a fill or border
+            edge = pg.evaluate("""(z) => { const r = document.body.firstElementChild; const out = [];
+              const bad = b => b.width && b.height && (b.left < z || b.top < z || b.right > 816 - z || b.bottom > 1056 - z);
+              const fmt = (t, b) => t + ' ' + Math.round(b.left) + ',' + Math.round(b.top) + ' ' + Math.round(b.right) + ',' + Math.round(b.bottom);
+              r.querySelectorAll('*').forEach(e => { const tag = e.tagName.toLowerCase();
+                if (e.closest('svg') && tag !== 'svg') return;
+                const s = getComputedStyle(e);
+                const inky = tag === 'img' || tag === 'svg' || s.backgroundImage !== 'none' ||
+                  (s.backgroundColor !== 'rgba(0, 0, 0, 0)' && s.backgroundColor !== 'transparent') ||
+                  ['Top','Right','Bottom','Left'].some(k => parseFloat(s['border' + k + 'Width']) > 0 && s['border' + k + 'Style'] !== 'none');
+                const b = e.getBoundingClientRect(); if (inky && bad(b)) out.push(fmt(tag, b)); });
+              const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT); let n;
+              while ((n = w.nextNode())) { if (!n.textContent.trim()) continue; const rg = document.createRange(); rg.selectNodeContents(n);
+                for (const b of rg.getClientRects()) if (bad(b)) { out.push(fmt('text "' + n.textContent.trim().slice(0, 24) + '"', b)); break; } }
+              return out; }""", zone)
+            for e in edge[:5]: print(f"  EDGE {pathlib.Path(f).name}: {e} is within {zone}px of the paper edge")
             if over > 1056: print(f"WARNING {f}: content needs {over}px (> 1056) and will be squeezed")
             pdf = HERE / f"_page{i}.pdf"
             pg.pdf(path=str(pdf), width="8.5in", height="11in", print_background=True, margin={"top": "0", "bottom": "0", "left": "0", "right": "0"})
