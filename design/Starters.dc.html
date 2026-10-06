@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TKB Diner appetizers and sandwiches</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&amp;family=Zilla+Slab:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.band{height:16px;background:conic-gradient(#A3302F 25%,#FBF6EC 0 50%,#A3302F 0 75%,#FBF6EC 0) 0 0/16px 16px}
+.kicker{font:600 12px/1 'Libre Franklin',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#2E6A68}
+.title{margin:0;font:700 54px/1 'Zilla Slab',serif;color:#8A2A2B}
+.sec{margin:0;font:700 23px/1.1 'Zilla Slab',serif;color:#2A1E18;display:flex;align-items:center;gap:12px}
+.sec::after{content:"";flex:1;height:2px;background:#2A1E18}
+.note{font:italic 400 13px/1.4 'Libre Franklin',sans-serif;color:#5A4636;margin-top:-6px}
+.it{display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:baseline;gap:8px}
+.nm{font:600 18px/1.2 'Zilla Slab',serif}
+.ld{flex:1;border-bottom:2px dotted #B9A68F;transform:translateY(-4px)}
+.pr{font:700 18px/1.2 'Zilla Slab',serif;color:#8A2A2B;white-space:nowrap}
+.ds{font:400 13px/1.4 'Libre Franklin',sans-serif;color:#4E3D31}
+.col{display:flex;flex-direction:column;gap:13px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;row-gap:11px}
+.foot{display:flex;justify-content:space-between;font:500 12px/1 'Libre Franklin',sans-serif;color:#5A4636;border-top:1.5px solid #2A1E18;padding-top:10px}
+.callout{border:2px solid #2E6A68;border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:4px}
+</style>
+</helmet>
+<div style="width: 816px; height: 1056px; box-sizing: border-box; background: #FBF6EC; color: #2A1E18; font-family: 'Libre Franklin', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+<div class="band"></div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px; padding: 34px 56px 30px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="kicker">TKB Diner</div>
+<h1 class="title">Appetizers &amp; Sandwiches</h1>
+</div>
+<div style="display: flex; flex-direction: column; gap: 13px">
+<h2 class="sec">Appetizers</h2>
+<div class="callout">
+<div class="row"><span class="nm">Sampler — pick any 3</span><span class="ld"></span><span class="pr">13</span></div>
+</div>
+<div class="grid2">
+<div class="row"><span class="nm">Corn Nuggets</span><span class="ld"></span><span class="pr">8</span></div>
+<div class="row"><span class="nm">Onion Rings</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Pickle Chips</span><span class="ld"></span><span class="pr">8</span></div>
+<div class="row"><span class="nm">Mozzarella Sticks</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Cheeseballs</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Jalapeño Bites</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Spinach Artichoke Dip</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Broccoli &amp; Cheese Bites</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">Mac &amp; Cheese Wedges</span><span class="ld"></span><span class="pr">9</span></div>
+<div class="row"><span class="nm">French Fries</span><span class="ld"></span><span class="pr">7</span></div>
+<div class="row"><span class="nm">Sweet Potato Fries</span><span class="ld"></span><span class="pr">8</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 13px; margin-top: 10px">
+<h2 class="sec">Sandwiches</h2>
+<div class="note">Served with fries · substitute any side +2</div>
+<div class="grid2" style="align-items: start">
+<div class="col">
+<div style="font: 600 12px/1 'Libre Franklin', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #2E6A68">Deli Classics</div>
+<div class="it"><div class="row"><span class="nm">BLT</span><span class="ld"></span><span class="pr">9 / 11</span></div><div class="ds">Wheat, bacon, lettuce, tomato, mayo</div></div>
+<div class="it"><div class="row"><span class="nm">Reuben</span><span class="ld"></span><span class="pr">10 / 12</span></div><div class="ds">Rye, corned beef, 1000 Island, sauerkraut, Swiss</div></div>
+<div class="it"><div class="row"><span class="nm">Rachel</span><span class="ld"></span><span class="pr">10 / 12</span></div><div class="ds">Rye, turkey, 1000 Island, sauerkraut, Swiss</div></div>
+<div class="it"><div class="row"><span class="nm">Club</span><span class="ld"></span><span class="pr">10 / 12</span></div><div class="ds">Sourdough, turkey, bacon, tomato, ranch, Colby jack</div></div>
+</div>
+<div class="col">
+<div style="font: 600 12px/1 'Libre Franklin', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #2E6A68">Hot Sandwiches · 13</div>
+<div class="ds" style="margin-top: -4px">On a bun with mayo; lettuce, tomato and onion on the side</div>
+<div class="row"><span class="nm">Pork Tender</span><span class="ld"></span><span class="pr">13</span></div>
+<div class="row"><span class="nm">Chicken Fried Chicken</span><span class="ld"></span><span class="pr">13</span></div>
+<div class="row"><span class="nm">Country Fried Steak</span><span class="ld"></span><span class="pr">13</span></div>
+<div class="row"><span class="nm">Grilled Chicken</span><span class="ld"></span><span class="pr">13</span></div>
+<div class="it" style="margin-top: 4px"><div class="row"><span class="nm">Philly</span><span class="ld"></span><span class="pr">13</span></div><div class="ds">Hoagie bun, peppers, onions, Swiss</div></div>
+</div>
+</div>
+</div>
+<div style="flex-grow: 1"></div>
+<div class="foot"><span>814 Broadway · Marysville, KS</span><span>(785) 562-3354</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":816,"height":1056}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

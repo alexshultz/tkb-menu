@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TKB Diner burgers and baskets</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&amp;family=Zilla+Slab:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.band{height:16px;background:conic-gradient(#A3302F 25%,#FBF6EC 0 50%,#A3302F 0 75%,#FBF6EC 0) 0 0/16px 16px}
+.kicker{font:600 12px/1 'Libre Franklin',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#2E6A68}
+.title{margin:0;font:700 54px/1 'Zilla Slab',serif;color:#8A2A2B}
+.sec{margin:0;font:700 23px/1.1 'Zilla Slab',serif;color:#2A1E18;display:flex;align-items:center;gap:12px}
+.sec::after{content:"";flex:1;height:2px;background:#2A1E18}
+.note{font:italic 400 13px/1.4 'Libre Franklin',sans-serif;color:#5A4636;margin-top:-6px}
+.it{display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:baseline;gap:8px}
+.nm{font:600 18px/1.2 'Zilla Slab',serif}
+.ld{flex:1;border-bottom:2px dotted #B9A68F;transform:translateY(-4px)}
+.pr{font:700 18px/1.2 'Zilla Slab',serif;color:#8A2A2B;white-space:nowrap}
+.ds{font:400 13px/1.4 'Libre Franklin',sans-serif;color:#4E3D31}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px;row-gap:13px;align-items:start}
+.foot{display:flex;justify-content:space-between;font:500 12px/1 'Libre Franklin',sans-serif;color:#5A4636;border-top:1.5px solid #2A1E18;padding-top:10px}
+.chip{font:500 13px/1 'Libre Franklin',sans-serif;border:1.5px solid #B9A68F;border-radius:999px;padding:6px 11px;white-space:nowrap}
+.chip b{font-weight:700;color:#8A2A2B}
+</style>
+</helmet>
+<div style="width: 816px; height: 1056px; box-sizing: border-box; background: #FBF6EC; color: #2A1E18; font-family: 'Libre Franklin', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+<div class="band"></div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 18px; padding: 34px 56px 30px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="kicker">TKB Diner</div>
+<h1 class="title">Burgers &amp; Baskets</h1>
+</div>
+<div style="display: flex; flex-direction: column; gap: 13px">
+<h2 class="sec">Burgers</h2>
+<div class="note">Served with fries · substitute any side +2</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+<span style="font: 600 12px/1 'Libre Franklin', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #2E6A68; margin-right: 4px">Add</span>
+<span class="chip">Cheese <b>+1</b></span>
+<span class="chip">Peppers or jalapeños <b>+1</b></span>
+<span class="chip">Bacon <b>+2</b></span>
+<span class="chip">Extra patty <b>+3</b></span>
+</div>
+<div style="background: #2A1E18; color: #FBF6EC; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; margin-top: 4px">
+<div class="row"><span class="nm" style="font-size: 22px">The Black Squirrel</span><span class="ld" style="border-color: #8C7A66"></span><span class="pr" style="font-size: 22px; color: #F2C9A0">14</span></div>
+<div class="ds" style="color: #E9DFCF; font-size: 14px">Bacon jam, muenster &amp; gouda, Nutella</div>
+</div>
+<div class="grid2">
+<div class="it"><div class="row"><span class="nm">Plain Jane</span><span class="ld"></span><span class="pr">12</span></div><div class="ds">Just the burger patty</div></div>
+<div class="it"><div class="row"><span class="nm">Patty Melt</span><span class="ld"></span><span class="pr">13</span></div><div class="ds">Rye, 1000 Island, Swiss</div></div>
+<div class="it"><div class="row"><span class="nm">The Whiskey</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Swiss, cheddar, bacon, onion tanglers, whiskey sauce</div></div>
+<div class="it"><div class="row"><span class="nm">The Sunrise</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Cheddar, bacon, fried egg</div></div>
+<div class="it"><div class="row"><span class="nm">The Firehouse</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Pepper jack, bacon, jalapeño, sriracha mayo</div></div>
+<div class="it"><div class="row"><span class="nm">The Midwest</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Colby jack, onion ring, BBQ sauce</div></div>
+<div class="it"><div class="row"><span class="nm">TKB Melt</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Swiss, grilled peppers, onions and mushrooms, garlic aioli</div></div>
+<div class="it"><div class="row"><span class="nm">The Club</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Colby jack, turkey, bacon, tomato, ranch</div></div>
+<div class="it"><div class="row"><span class="nm">The Carter</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Cheddar &amp; Swiss, onion tanglers, bacon, fried egg, ranch</div></div>
+<div class="it"><div class="row"><span class="nm">The Reuben Burger</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">Swiss, corned beef, sauerkraut, 1000 Island</div></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 13px; margin-top: 8px">
+<h2 class="sec">Baskets &amp; Wraps</h2>
+<div class="grid2">
+<div class="it"><div class="row"><span class="nm">Fish &amp; Chips</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">8 oz walleye strips and fries</div></div>
+<div class="it"><div class="row"><span class="nm">Chicken Strips</span><span class="ld"></span><span class="pr">14</span></div><div class="ds">4 chicken strips and fries</div></div>
+<div class="it"><div class="row"><span class="nm">Shrimp</span><span class="ld"></span><span class="pr">15</span></div><div class="ds">8 butterfly shrimp and fries</div></div>
+<div class="it"><div class="row"><span class="nm">CBR Wrap</span><span class="ld"></span><span class="pr">12</span></div><div class="ds">Crispy or grilled chicken, bacon, ranch, cheese, lettuce, tomato</div></div>
+</div>
+</div>
+<div style="font: 400 13px/1.45 'Libre Franklin', sans-serif; color: #4E3D31; border-top: 1.5px dotted #B9A68F; padding-top: 10px; margin-top: 4px"><span style="font-weight: 600; color: #2A1E18">Swap your fries (+2):</span> veggie of the day, baked potato, loaded baked potato, sweet potato fries, mashed potatoes &amp; gravy, side salad, seasonal salad, cup of soup or an appetizer</div>
+<div style="flex-grow: 1"></div>
+<div class="foot"><span>814 Broadway · Marysville, KS</span><span>(785) 562-3354</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":816,"height":1056}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
