@@ -43,10 +43,14 @@ def main():
             pg.wait_for_load_state("networkidle")
             pg.evaluate("document.fonts.ready")
             # report any page whose content overflows its fixed 1056px frame
-            over = pg.evaluate("""() => { const r = document.body.firstElementChild; let m = 0;
-              r.querySelectorAll('*').forEach(e => { const b = e.getBoundingClientRect(); if (b.height) m = Math.max(m, b.bottom); });
-              return Math.round(m); }""")
-            if over > 1056: print(f"WARNING {f}: content reaches {over}px (> 1056)")
+            # flex children shrink instead of overflowing, so compare each child's
+            # natural height (min-content) against the space the page actually gives it
+            over = pg.evaluate("""() => { const r = document.body.firstElementChild;
+              const kids = [...r.children]; const prev = kids.map(k => k.style.flexShrink);
+              kids.forEach(k => k.style.flexShrink = '0'); const need = r.scrollHeight;
+              kids.forEach((k, i) => k.style.flexShrink = prev[i]); return need; }""")
+            print(f"{pathlib.Path(f).name}: needs {over}px of 1056")
+            if over > 1056: print(f"WARNING {f}: content needs {over}px (> 1056) and will be squeezed")
             pdf = HERE / f"_page{i}.pdf"
             pg.pdf(path=str(pdf), width="8.5in", height="11in", print_background=True, margin={"top": "0", "bottom": "0", "left": "0", "right": "0"})
             pg.screenshot(path=str(HERE / f"_page{i}.png"))
