@@ -4,6 +4,10 @@ Printed menu slip-ins for TKB Diner, 814 Broadway, Marysville, KS. There are fou
 
 The live, editable design is the Claude canvas "TKB Diner Menu" (https://claude.ai/artifact/T4UfUTeX7zyjBYndvCK3HH), with one canvas page per set: "Regular menu", "Halloween menu", "Thanksgiving menu" and "Christmas menu". This repo is a snapshot of the canvas source, the print-ready PDFs, the artwork and the reference photos.
 
+## Style guide
+
+`style-guide/` describes the look (colors, type, layout, components, copy rules, print rules) for anyone editing the menu or making matching material, plus a short section on holiday and special-event variations. The browsable version with swatches and live previews is the Claude design system "TKB Diner Menu Style Guide". Standalone band SVGs are in `assets/bands/`.
+
 ## Print-ready PDFs
 
 | Set | File |

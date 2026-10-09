@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=Zilla+Slab:wght@500;600;700&display=swap");
+
+/* TKB Diner menu components. Every value is a token from tokens.json. */
+
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.tkb-sheet { background: var(--paper); color: var(--ink); padding: 20px var(--page-margin-x); box-sizing: border-box; }
+
+/* PageHeader */
+.tkb-header { display: flex; flex-direction: column; gap: 8px; }
+.tkb-kicker { font: 600 12px/1 var(--font-body); letter-spacing: .24em; text-transform: uppercase; color: var(--teal); }
+.tkb-title { margin: 0; font: 700 54px/1 var(--font-display); color: var(--maroon); }
+
+/* SectionHeading */
+.tkb-sec { margin: 0; font: 700 23px/1.1 var(--font-display); color: var(--ink); display: flex; align-items: center; gap: 12px; }
+.tkb-sec::after { content: ""; flex: 1; height: 2px; background: var(--ink); }
+.tkb-note { font: italic 400 13px/1.4 var(--font-body); color: var(--ink-muted); }
+
+/* MenuItem */
+.tkb-col { display: flex; flex-direction: column; gap: var(--item-gap); }
+.tkb-item { display: flex; flex-direction: column; gap: 2px; }
+.tkb-row { display: flex; align-items: baseline; gap: var(--leader-gap); }
+.tkb-name { font: 600 18px/1.2 var(--font-display); color: var(--ink); }
+.tkb-leader { flex: 1; border-bottom: 2px dotted var(--leader); transform: translateY(-4px); }
+.tkb-price { font: 700 18px/1.2 var(--font-display); color: var(--maroon); white-space: nowrap; }
+.tkb-desc { font: 400 13px/1.4 var(--font-body); color: var(--ink-soft); }
+
+/* CompactList */
+.tkb-list { display: flex; flex-direction: column; gap: var(--list-gap); }
+.tkb-list .tkb-name { font: 500 15px/1.3 var(--font-body); }
+.tkb-list .tkb-price { font: 700 15px/1.3 var(--font-display); }
+
+/* ItemGrid */
+.tkb-grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--column-gap); row-gap: var(--grid-row-gap); align-items: start; }
+
+/* Labels */
+.tkb-label { font: 600 12px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--teal); }
+
+/* HighlightBox */
+.tkb-highlight { background: var(--paper-tint); border-radius: var(--radius-box); padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; }
+.tkb-highlight > .tkb-label { color: var(--maroon); }
+
+/* OutlineBox */
+.tkb-outline { border: 2px solid var(--teal); border-radius: var(--radius-box); padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+
+/* FeatureCallout */
+.tkb-feature { border-radius: var(--radius-feature); padding: var(--callout-pad-y) var(--callout-pad-x); display: flex; flex-direction: column; gap: 6px; color: var(--on-dark); }
+.tkb-feature.is-ink { background: var(--ink); }
+.tkb-feature.is-maroon { background: var(--maroon); }
+.tkb-feature .tkb-name { color: var(--on-dark); font-size: 22px; }
+.tkb-feature.is-maroon .tkb-name { font-size: 26px; }
+.tkb-feature .tkb-leader { border-color: var(--leader); }
+.tkb-feature.is-ink .tkb-price { color: var(--on-dark-price); font-size: 22px; }
+.tkb-feature.is-maroon .tkb-price { color: var(--on-dark); font-size: 26px; }
+.tkb-feature.is-ink .tkb-desc { color: var(--on-dark-soft); font-size: 14px; }
+.tkb-feature.is-maroon .tkb-desc { color: var(--on-maroon-label); }
+.tkb-feature-label { font: 600 11px/1.4 var(--font-body); letter-spacing: .22em; text-transform: uppercase; }
+.tkb-feature.is-maroon .tkb-feature-label { color: var(--on-maroon-label); }
+.tkb-feature.is-ink .tkb-feature-label { color: var(--on-dark-label); }
+.tkb-feature-head { font: 700 22px/1.2 var(--font-display); color: var(--on-dark); }
+
+/* AddOnChips */
+.tkb-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tkb-chip { font: 500 13px/1 var(--font-body); border: 1.5px solid var(--leader); border-radius: var(--radius-chip); padding: 6px 11px; white-space: nowrap; color: var(--ink); }
+.tkb-chip b { font-weight: 700; color: var(--maroon); }
+
+/* BeerTable */
+.tkb-table { border-collapse: collapse; width: 100%; }
+.tkb-table th { font: 600 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-muted); text-align: right; padding: 0 0 7px 10px; border-bottom: 1.5px solid var(--ink); }
+.tkb-table th:first-child { text-align: left; padding-left: 0; }
+.tkb-table td { padding: 7px 0 7px 10px; border-bottom: 1px solid var(--table-rule); text-align: right; font: 700 16px/1.2 var(--font-display); color: var(--maroon); font-variant-numeric: tabular-nums; }
+.tkb-table td:first-child { text-align: left; padding-left: 0; font-weight: 600; color: var(--ink); }
+
+/* FinePrint */
+.tkb-fine { font: 400 12px/1.5 var(--font-body); color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; border-top: 1.5px dotted var(--leader); padding-top: 12px; }
+.tkb-fine b { font-weight: 600; color: var(--ink); }
+
+/* PageFooter */
+.tkb-foot { display: flex; justify-content: space-between; font: 500 12px/1 var(--font-body); color: var(--ink-muted); border-top: 1.5px solid var(--ink); padding-top: 10px; }
+
+/* Band */
+.tkb-checker { height: var(--band-height-checker); background: conic-gradient(var(--check-red) 25%, var(--paper) 0 50%, var(--check-red) 0 75%, var(--paper) 0) 0 0 / 16px 16px; }
