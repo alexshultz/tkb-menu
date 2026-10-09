@@ -37,17 +37,15 @@ The canvas and the Word file are separate copies. Decide which one is current be
 
 Run it after every content change. A change to items or prices has to be made in every copy of the inside pages: the regular canvas pages, each seasonal set, and the Word file.
 
-## Open questions for the diner
-
-- Coffee has no price yet; it is listed with water as "Also: coffee and water".
-- Tea is listed as "Tea, iced or hot" at 2.50, on the assumption that both cost the same.
-- "Thousand Island" in the dressing list but "1000 Island" in item descriptions: pick one.
-- Sierra Mist was renamed Starry in 2023.
-- Opening hours, if they should appear on the cover.
-
 ## Settled
 
 - Slip-ins are plain US Letter prints.
 - Two-price items are half and full orders.
+- Drinks carry two decimals: fountain soda 3.00, tea 2.50 (same price iced or hot), orange juice 3.00, milk 3.00, coffee 2.50. Water is listed without a price.
+- Specialty coffee drinks are on the diner's separate drink menu; the drinks section points to it.
+- Dressing and descriptions both say "1000 Island".
+- The lemon-lime fountain drink is Starry.
+- Breakfast is served all day: said on the cover and as a tag beside the Classic Breakfast title.
+- Opening hours stay off the menu.
 - Gluten-free: no item marks; guests ask their server.
 - Both chicken-strip entries (basket and kids) are hand-breaded to order.

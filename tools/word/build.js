@@ -154,7 +154,8 @@ const coverChildren = [
   P([new ImageRun({ type: 'png', data: img('cover-regular.png'), transformation: { width: 620, height: 575 }, altText: { name: 'Cover picture', title: 'Cover picture', description: 'Drop-in cover picture. Right-click > Change Picture to swap in holiday art (620 x 575 px).' } })], { align: AlignmentType.CENTER, after: 0, line: 240 }),
   P([run('TKB Diner', { font: F.slab, size: 132, color: C.maroon })], { align: AlignmentType.CENTER, before: 300, after: 120, line: 240 }),
   P([run('Breakfast · Lunch · Dinner', { font: F.semi, size: 21, color: C.teal, caps: true, spacing: 55 })], { align: AlignmentType.CENTER, after: 0 }),
-  P([run('814 Broadway · Marysville, KS 66508', { size: 25, color: C.inkMuted })], { align: AlignmentType.CENTER, before: 760, after: 40 }),
+  P([run('Breakfast served all day', { font: F.slabSemi, size: 33, color: C.ink })], { align: AlignmentType.CENTER, before: 90, after: 0 }),
+  P([run('814 Broadway · Marysville, KS 66508', { size: 25, color: C.inkMuted })], { align: AlignmentType.CENTER, before: 540, after: 40 }),
   P([run('(785) 562-3354', { font: F.slab, size: 36, color: C.ink })], { align: AlignmentType.CENTER, after: 40 }),
   P([run('Join us on Facebook', { size: 25, color: C.inkMuted })], { align: AlignmentType.CENTER }),
 ];
@@ -165,7 +166,8 @@ const FULL_TAB = TEXT_W - 20;
 const listItem = (n, p) => item(n, p, null, { list: true });
 
 const page2 = [
-  kicker(false), title('Classic Breakfast'),
+  kicker(false),
+  P([run('Classic Breakfast', { font: F.slab, size: 81, color: C.maroon }), new TextRun({ text: '\t' }), run('Served all day', { font: F.semi, size: 20, color: C.teal, caps: true, spacing: 40 })], { after: 360, tab: FULL_TAB, leader: 'none' }),
   columns([
     heading('Favorites', { first: true }),
     ...item('Biscuits & Gravy', 'half 4 · full 7', 'Biscuits and homemade sausage gravy'),
@@ -261,7 +263,7 @@ const page5 = [
     ...item('Chef', 'half 9 · full 12', 'Ham, turkey, tomatoes, cheddar, hard-boiled egg'),
     ...item('Greek', 'half 9 · full 12', 'Spinach, chicken, olives'),
     ...item('Grilled Chicken', 'half 9 · full 12', 'Grilled chicken breast'),
-    box([label('Dressings'), desc('Homemade ranch · Blue cheese · Raspberry vinaigrette · Dorothy Lynch · Italian · Thousand Island · Honey mustard', { after: 100 })], COL_W, 'outline'),
+    box([label('Dressings'), desc('Homemade ranch · Blue cheese · Raspberry vinaigrette · Dorothy Lynch · Italian · 1000 Island · Honey mustard', { after: 100 })], COL_W, 'outline'),
     heading('Sides'), note('Choose two with any entree', { after: 100 }),
     ...['Fries', 'Veggie of the day', 'Baked potato', 'Mashed potatoes & gravy', 'Mac & cheese', 'Side salad', 'Cup of soup'].flatMap((n) => listItem(n, null)),
     ...[['Sweet potato fries', '+2'], ['An appetizer', '+2'], ['Loaded baked potato', '+3']].flatMap(([n, p]) => listItem(n, p)),
@@ -289,9 +291,9 @@ const page6 = [
     feature('ink', { label: 'We cater', headline: 'Hosting an event, a wedding or a business meeting?', desc: 'Ask for our catering menu and pricing.' }),
   ], [
     heading('Drinks', { first: true }),
-    ...item('Fountain soda', '3.00', '24 oz with unlimited refills · Pepsi, Diet Pepsi, Mountain Dew, Dr Pepper, Sierra Mist', {}),
-    ...item('Tea, iced or hot', '2.50'), ...item('Orange juice', '3.00'), ...item('Milk', '3.00'),
-    desc('Also: coffee and water', { after: 110 }),
+    ...item('Fountain soda', '3.00', '24 oz with unlimited refills · Pepsi, Diet Pepsi, Mountain Dew, Dr Pepper, Starry', {}),
+    ...item('Tea, iced or hot', '2.50'), ...item('Orange juice', '3.00'), ...item('Milk', '3.00'), ...item('Coffee', '2.50'),
+    desc('Also: water', { after: 110 }),
     note('Specialty drinks — ask for our drink menu', { after: 60 }),
     heading('Beer'),
     beerTable,
@@ -301,7 +303,7 @@ const page6 = [
     P([run('Make any beer a red beer ', { size: 20, color: C.inkSoft }), run('+0.25', { font: F.semi, size: 20, color: C.maroon })], { after: 140 }),
     ...item("Mike's Hard Lemonade, Smirnoff", '4.00', null, { size: 24 }),
   ]),
-  P([run('', { size: 2 })], { before: 900 }),
+  P([run('', { size: 2 })], { before: 160 }),
   P([run('Allergies & gluten-free: ', { font: F.semi, size: 18, color: C.ink }), run('Many items are or can be made gluten-free. Please tell your server about any allergies and we will accommodate as best we can. Ours is an open-air kitchen, so cross-contact is always a risk.', { size: 18, color: C.inkSoft })],
     { after: 100, line: 270, border: { top: { style: BorderStyle.DOTTED, size: 12, color: C.leader, space: 8 } } }),
   P([run('Consumer advisory: ', { font: F.semi, size: 18, color: C.ink }), run('Eggs on our menu can be ordered raw or undercooked. Consuming raw or undercooked meats, poultry, seafood, shellfish or eggs may increase your risk of foodborne illness. For more information, see the Kansas Department of Agriculture website.', { size: 18, color: C.inkSoft })], { line: 270 }),

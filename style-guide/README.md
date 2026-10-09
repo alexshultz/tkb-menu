@@ -20,11 +20,12 @@ Warm cream paper, dark brown ink, a confident slab-serif for names and prices, a
 - **Prices** are numbers only, no dollar sign. Whole dollars have no decimals ("11"). Use decimals only where the price has cents ("4.25", "3.50"); in a column of drink prices keep two decimals throughout.
 - **Half and full orders** are written "half 4 · full 7"; sizes the same way ("½ lb 18 · 1 lb 23", "cup 4 · bowl 6"). Never write a bare "4 / 7".
 - **Separators**: a middle dot with a space each side ( · ) between short facts on one line. Add-ons are written "+2".
-- Spell it the diner's way: Reuben, Rachel, Colby jack, jalapeño, Dorothy Lynch, Pepsi, Dr Pepper (no period).
+- Spell it the diner's way: Reuben, Rachel, Colby jack, jalapeño, Dorothy Lynch, 1000 Island, Pepsi, Dr Pepper (no period), Starry.
+- **Breakfast all day**: say it on the cover ("Breakfast served all day", under the tagline) and with the "Served all day" tag beside the Classic Breakfast title. Anything that lists breakfast elsewhere (specials sheet, social post) should say it too.
 - **Gluten-free**: items carry no mark. The allergy note on page 6 asks guests to tell their server; this is the diner's chosen wording, so keep it.
 - **Hand-breaded to order** is the diner's point of pride. Every hand-breaded item says so: the hand-breaded box on the sandwich and entree pages, and the "Hand-breaded to order" tag on both chicken-strip entries.
 - No emoji, no exclamation marks, no ALL CAPS sentences. Uppercase is only for the small spaced-out labels (`kicker`, `label`, `tagline`).
-- The address is "814 Broadway · Marysville, KS 66508"; the phone is "(785) 562-3354"; social is "Join us on Facebook". Hours are not on the menu yet; don't invent them.
+- The address is "814 Broadway · Marysville, KS 66508"; the phone is "(785) 562-3354"; social is "Join us on Facebook". Hours stay off the menu by the diner's choice.
 
 ## Color
 

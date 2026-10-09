@@ -94,14 +94,10 @@ node tools/word/howto.js "word/How to update the menu.docx"
 
 - Slip-ins are plain US Letter prints.
 - Two-price items are half and full orders, written "half 4 · full 7".
-- Drinks are priced with two decimals: fountain soda 3.00, tea (iced or hot) 2.50, orange juice 3.00, milk 3.00.
+- Drinks are priced with two decimals: fountain soda 3.00, tea 2.50 (same iced or hot), orange juice 3.00, milk 3.00, coffee 2.50. Water is listed without a price.
+- Specialty coffee drinks are on the diner's separate drink menu; the drinks section points to it.
+- "1000 Island" everywhere. The lemon-lime fountain drink is Starry.
+- Breakfast is served all day: said on the cover under the tagline and as a tag beside the Classic Breakfast title.
+- Opening hours stay off the menu.
 - Gluten-free: no items are marked; the allergy note asks guests to tell their server.
 - Hand-breaded to order: Pork Tender, Chicken Fried Chicken and Country Fried Steak (sandwiches and entrees), and both chicken-strip entries (basket and kids).
-
-## Open questions for the diner
-
-- Coffee has no price yet. It is listed with water as "Also: coffee and water".
-- Tea is listed as one price for iced or hot. Confirm both cost 2.50.
-- The dressing list says "Thousand Island" and item descriptions say "1000 Island". Pick one.
-- Sierra Mist was renamed Starry in 2023.
-- Opening hours, if they should go on the cover.

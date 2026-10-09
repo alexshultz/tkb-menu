@@ -10,7 +10,7 @@ Holiday menus are for fun. They borrow everything from the regular menu and chan
 ## What never changes
 
 - The inside pages: `paper` ground, `maroon` and `teal`, the same fonts, sizes, layout, content and prices as the regular menu.
-- The cover text: "TKB Diner" in `cover-title` (maroon), the `tagline` "BREAKFAST · LUNCH · DINNER" between teal rules, then the address block. **Never write the occasion on the cover** ("Halloween Menu", "Merry Christmas"). The art says it.
+- The cover text: "TKB Diner" in `cover-title` (maroon), the `tagline` "BREAKFAST · LUNCH · DINNER" between teal rules, "Breakfast served all day", then the address block. **Never write the occasion on the cover** ("Halloween Menu", "Merry Christmas"). The art says it.
 - Seasonal colours stay inside the band and the cover art. They never color text, headings or callouts.
 - The printer's `safe-zone`.
 
