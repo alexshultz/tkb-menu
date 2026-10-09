@@ -1,0 +1,5 @@
+tools/node_modules/
+tools/package-lock.json
+tools/.render/
+word/build/
+tools/word/fonts/

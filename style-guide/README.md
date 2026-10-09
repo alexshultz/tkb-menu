@@ -1,10 +1,10 @@
 # TKB Diner menu style guide
 
-The live, browsable version (with color swatches and component previews) is the Claude design system "TKB Diner Menu Style Guide". This folder is a copy of its text, tokens and component stylesheet. Band SVGs are in `../assets/bands/`.
+The live, browsable version (with color swatches and component previews) is the Claude design system "TKB Diner Menu Style Guide". This folder is a copy of its text, tokens and component stylesheet. Band SVGs are in `../assets/bands/` and `../assets/seasonal/bands/`.
 
 TKB Diner is a small-town diner at 814 Broadway in Marysville, Kansas, serving breakfast, lunch and dinner. This system describes its printed menu: six letter-size pages that slide into the diner's existing black menu folder. Everything here is built from that menu. Use it to edit the menu, to add a page, or to make anything that should look like it belongs with it: a specials sheet, a table tent, a flyer, a social post.
 
-The regular menu is the brand. Holiday and special-event versions are allowed to play, but they change only two things (the cover art and the band across the top of the page). See the Holidays & special events section.
+The design master is the menu canvas; the diner edits a Word copy of the regular menu (see Print production & files). The regular menu is the brand. Holiday and special-event versions are allowed to play, but they change only two things (the cover art and the band across the top of the page). See the Holidays & special events section.
 
 ## The look in one paragraph
 
@@ -18,9 +18,11 @@ Warm cream paper, dark brown ink, a confident slab-serif for names and prices, a
 - **Descriptions** in sentence case, in `description`, ingredients separated by commas with "and" before the last one. No serial comma, no full stop.
 - **Serving notes** go once under the section heading in italic `note` ("Served with fries · substitute any side +2"), not repeated on every item.
 - **Prices** are numbers only, no dollar sign. Whole dollars have no decimals ("11"). Use decimals only where the price has cents ("4.25", "3.50"); in a column of drink prices keep two decimals throughout.
-- **Two prices** for one item are written "9 / 12" until the diner confirms what the second price means; then label them ("cup 4 · bowl 6", "half 5 · full 10").
+- **Half and full orders** are written "half 4 · full 7"; sizes the same way ("½ lb 18 · 1 lb 23", "cup 4 · bowl 6"). Never write a bare "4 / 7".
 - **Separators**: a middle dot with a space each side ( · ) between short facts on one line. Add-ons are written "+2".
 - Spell it the diner's way: Reuben, Rachel, Colby jack, jalapeño, Dorothy Lynch, Pepsi, Dr Pepper (no period).
+- **Gluten-free**: items carry no mark. The allergy note on page 6 asks guests to tell their server; this is the diner's chosen wording, so keep it.
+- **Hand-breaded to order** is the diner's point of pride. Every hand-breaded item says so: the hand-breaded box on the sandwich and entree pages, and the "Hand-breaded to order" tag on both chicken-strip entries.
 - No emoji, no exclamation marks, no ALL CAPS sentences. Uppercase is only for the small spaced-out labels (`kicker`, `label`, `tagline`).
 - The address is "814 Broadway · Marysville, KS 66508"; the phone is "(785) 562-3354"; social is "Join us on Facebook". Hours are not on the menu yet; don't invent them.
 

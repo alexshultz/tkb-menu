@@ -11,14 +11,22 @@
 
 ## Where the files are
 
-- **Editable design**: the Claude canvas "TKB Diner Menu", one canvas page per set (Regular, Halloween, Thanksgiving, Christmas). Each artboard is one sheet. Export a set with Export › All artboards (.pdf) from its canvas page.
-- **Source and history**: the GitHub repository `alexshultz/tkb-menu`.
-  - `design/` holds every page as a `.dc.html` file plus `canvas.json`. Regular pages have plain names (`Main`, `Breakfast`, `Starters`, `Burgers`, `Dinner`, `Kids`); seasonal copies are prefixed `H` (Halloween), `T` (Thanksgiving) and `X` (Christmas).
-  - `print/` holds the print-ready PDFs.
-  - `assets/logos/` holds the logos; `assets/logos/original/` holds the untouched source art.
-  - `tools/render.py` renders a set to PDF and checks it.
-  - `reference/current-menu-photos/` holds photos of the old menu.
+- **Design master**: the Claude canvas "TKB Diner Menu". The regular menu is its first canvas page; each seasonal set has a canvas page of its own. Each artboard is one sheet. Export a set with Export › All artboards (.pdf) from its canvas page.
+- **Repository** `alexshultz/tkb-menu`:
+  - `design/`: every canvas page as a `.dc.html` file plus `canvas.json`. The regular pages are `Main` (cover), `Breakfast`, `Starters`, `Burgers`, `Dinner`, `Kids`. Seasonal copies carry a one-letter prefix and have the same page names.
+  - `print/TKB-Diner-Menu.pdf`: the regular menu, ready to print. Seasonal PDFs are in `print/seasonal/`.
+  - `word/`: the editable Word menu for the diner, the staff how-to and the drop-in pictures.
+  - `assets/logos/`: the regular logo (print version and untouched original). `assets/bands/`: the checkerboard band. `assets/seasonal/`: seasonal cover art and bands.
+  - `style-guide/`: a copy of this guide's text, tokens and component stylesheet.
+  - `tools/`: the PDF renderer and the Word build.
+  - `reference/current-menu-photos/`: photos of the menu this one replaced.
 - **In this system**: the Logos, Bands, Seasonal and Print files asset groups hold the same logos, standalone SVG bands and the current PDFs.
+
+## The Word menu
+
+The diner edits the menu in `word/TKB Diner Menu.docx`, a native Word file built from the regular pages: prices sit on dot-leader tab stops, both fonts are embedded, and the cover art and bands are drop-in pictures. Every drop-in shares one canvas size (cover 620 × 575 px, band 756 × 34 px, transparent PNG), so Change Picture puts a new one in exactly the same place. A seasonal look is three picture changes: cover art, the band in the page header (all inside pages), and the band in the cover footer.
+
+The canvas and the Word file are separate copies. Decide which one is current before making changes: if the diner has edited the Word file, take their file as the source and copy its changes back to the canvas before printing new PDFs.
 
 ## Rendering and checking
 
@@ -27,14 +35,19 @@
 - how much height the content needs; anything over 1056 px means the page is overfull and must be cut, not shrunk;
 - anything printed inside the 1/4in safe zone.
 
-Run it after every content change. A change to items or prices has to be made in every set (regular and each seasonal copy), because the inside pages are separate copies.
+Run it after every content change. A change to items or prices has to be made in every copy of the inside pages: the regular canvas pages, each seasonal set, and the Word file.
 
 ## Open questions for the diner
 
-- Two-price items (biscuits & gravy 4/7, sandwiches 9/11 and 10/12, salads 9/12): what the second price means.
-- Prices for iced tea, hot tea, coffee, milk and orange juice.
-- Which items are gluten-free; the menu currently says to ask the server.
-- Whether the kids' chicken strips are hand-breaded like the basket strips.
+- Coffee has no price yet; it is listed with water as "Also: coffee and water".
+- Tea is listed as "Tea, iced or hot" at 2.50, on the assumption that both cost the same.
 - "Thousand Island" in the dressing list but "1000 Island" in item descriptions: pick one.
 - Sierra Mist was renamed Starry in 2023.
 - Opening hours, if they should appear on the cover.
+
+## Settled
+
+- Slip-ins are plain US Letter prints.
+- Two-price items are half and full orders.
+- Gluten-free: no item marks; guests ask their server.
+- Both chicken-strip entries (basket and kids) are hand-breaded to order.

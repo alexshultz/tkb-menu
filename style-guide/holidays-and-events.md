@@ -30,22 +30,17 @@ A band is one SVG strip, 756 px wide (`band-width`) and 30–34 px tall, placed 
 - Keep motifs about 22–28 px tall so they read as a border, not as clip art.
 - Set a 1.5px `ink` rule under bands that sit on a flat baseline (checkerboard aside). A hanging garland needs no rule.
 - On the cover, repeat the band at the bottom, inset 28 px from the bottom edge.
-- Store each band as its own SVG in the Seasonal asset group so it can be reused on table tents and social posts.
+- Store each band as its own SVG (Seasonal asset group here, `assets/seasonal/bands/` in the repository) so it can be reused on table tents and social posts. For the Word menu, also export it as a 756 × 34 px PNG with a transparent background.
 
-## The sets so far
+## Existing sets
 
-| Set | Cover art | Band |
-| --- | --- | --- |
-| Regular | Charcoal cover, copper squirrels logo | Red-and-white checkerboard, 16 px |
-| Halloween | Witch-hat squirrels, cauldron, jack-o'-lanterns | Autumn leaves and jack-o'-lanterns, 30 px |
-| Thanksgiving | Pilgrim-hat squirrels, woven TKB basket, pumpkins and corn | Turkeys and pumpkins, 30 px |
-| Christmas | Santa-hat squirrels, red cocoa mug, holly and pine cones | Garland with tree lights, glass ball ornaments and candy canes, 34 px |
+Each holiday set so far is a copy of the six regular pages with its own cover art and band. They live beside the regular menu on the canvas (one canvas page per set) and in the repository under the seasonal folders. Treat them as examples to copy, not as part of the regular menu.
 
 ## Making a new set
 
 1. Get the cover art (same formula) and remove its background.
 2. Draw the band tile and check it at 300% zoom: every motif should be recognizable.
-3. Copy the six regular pages; replace the checkerboard band with the new band on each inside page; build the cover from an existing seasonal cover and swap the art and both bands.
+3. On the canvas: copy the six regular pages, replace the checkerboard band with the new band on each inside page, and build the cover from an existing seasonal cover with the art and both bands swapped. In the Word menu: change the three pictures (cover art, header band, cover footer band); the art goes on a 620 × 575 px transparent canvas.
 4. Render the PDF and check that every page still fits on one sheet and nothing sits inside the safe zone.
 5. Print one test sheet on the diner's printer before printing the set.
 

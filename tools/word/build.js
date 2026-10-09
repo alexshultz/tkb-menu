@@ -1,5 +1,8 @@
 // Builds the editable TKB Diner menu (regular) as a Word file.
-// usage: node build.js <kit dir> <fonts dir> <out.docx>
+// usage (from the repo root):
+//   node tools/word/build.js word/Pictures tools/word/fonts word/build/raw.docx
+//   python3 tools/word/fixup.py word/build/raw.docx "word/TKB Diner Menu.docx"
+// <kit dir> holds cover-regular.png and band-regular.png; paper.png sits next to this script.
 const fs = require('fs');
 const path = require('path');
 const d = require('docx');
@@ -10,7 +13,7 @@ const {
 } = d;
 
 const [KIT, FONTS, OUT] = process.argv.slice(2);
-const img = (f) => fs.readFileSync(path.join(KIT, f));
+const img = (f) => fs.readFileSync(f === 'paper.png' ? path.join(__dirname, 'paper.png') : path.join(KIT, f));
 
 // ---- tokens (from the style guide) ----
 const C = {
@@ -165,7 +168,7 @@ const page2 = [
   kicker(false), title('Classic Breakfast'),
   columns([
     heading('Favorites', { first: true }),
-    ...item('Biscuits & Gravy', '4 / 7', 'Biscuits and homemade sausage gravy'),
+    ...item('Biscuits & Gravy', 'half 4 · full 7', 'Biscuits and homemade sausage gravy'),
     ...item('Breakfast Sandwich', '8', 'Choice of ham, bacon or sausage, cheese and one egg'),
     ...item('Breakfast Burrito', '9', 'Choice of meat, cheddar and two eggs'),
     ...item('Western Burrito', '11', 'Ham, cheddar, potatoes, onions, peppers and two eggs'),
@@ -200,10 +203,10 @@ const page3 = [
   heading('Sandwiches'), note('Served with fries · substitute any side +2'),
   columns([
     label('Deli Classics'),
-    ...item('BLT', '9 / 11', 'Wheat, bacon, lettuce, tomato, mayo'),
-    ...item('Reuben', '10 / 12', 'Rye, corned beef, 1000 Island, sauerkraut, Swiss'),
-    ...item('Rachel', '10 / 12', 'Rye, turkey, 1000 Island, sauerkraut, Swiss'),
-    ...item('Club', '10 / 12', 'Sourdough, turkey, bacon, tomato, ranch, Colby jack'),
+    ...item('BLT', 'half 9 · full 11', 'Wheat, bacon, lettuce, tomato, mayo'),
+    ...item('Reuben', 'half 10 · full 12', 'Rye, corned beef, 1000 Island, sauerkraut, Swiss'),
+    ...item('Rachel', 'half 10 · full 12', 'Rye, turkey, 1000 Island, sauerkraut, Swiss'),
+    ...item('Club', 'half 10 · full 12', 'Sourdough, turkey, bacon, tomato, ranch, Colby jack'),
   ], [
     label('Hot Sandwiches · 13'),
     desc('On a bun with mayo; lettuce, tomato and onion on the side', { after: 120 }),
@@ -255,9 +258,9 @@ const page5 = [
     heading('Homemade Soup', { first: true }), note("Seasonal — today's soups are posted on the specials board"),
     ...item('Cup', '4'), ...item('Bowl', '6'),
     heading('Salads'),
-    ...item('Chef', '9 / 12', 'Ham, turkey, tomatoes, cheddar, hard-boiled egg'),
-    ...item('Greek', '9 / 12', 'Spinach, chicken, olives'),
-    ...item('Grilled Chicken', '9 / 12', 'Grilled chicken breast'),
+    ...item('Chef', 'half 9 · full 12', 'Ham, turkey, tomatoes, cheddar, hard-boiled egg'),
+    ...item('Greek', 'half 9 · full 12', 'Spinach, chicken, olives'),
+    ...item('Grilled Chicken', 'half 9 · full 12', 'Grilled chicken breast'),
     box([label('Dressings'), desc('Homemade ranch · Blue cheese · Raspberry vinaigrette · Dorothy Lynch · Italian · Thousand Island · Honey mustard', { after: 100 })], COL_W, 'outline'),
     heading('Sides'), note('Choose two with any entree', { after: 100 }),
     ...['Fries', 'Veggie of the day', 'Baked potato', 'Mashed potatoes & gravy', 'Mac & cheese', 'Side salad', 'Cup of soup'].flatMap((n) => listItem(n, null)),
@@ -278,15 +281,17 @@ const page6 = [
   kicker(), title('Kids, Drinks & Desserts'),
   columns([
     heading("Kids' Meals", { first: true }), note('With fries, mac & cheese or mashed potatoes'),
-    ...item('Chicken Strips (2)', '8'), ...item('Hamburger', '9'), ...item('Grilled Cheese', '7'), ...item('PB&J', '7'),
+    P([run('Chicken Strips (2)', { font: F.slabSemi, size: 27 }), leaderTab(), run('8', { font: F.slab, size: 27, color: C.maroon })], { tab: COL_W - 20, after: 20, keepNext: true }),
+    P([run('Hand-breaded to order', { font: F.semi, size: 20, color: C.maroon })], { after: ITEM_GAP }), ...item('Hamburger', '9'), ...item('Grilled Cheese', '7'), ...item('PB&J', '7'),
     heading('Desserts'), note("Ask about today's homemade desserts"),
     ...item('Pie', '4.25'), ...item('Cheesecake', '4.75'),
     spacer(120),
     feature('ink', { label: 'We cater', headline: 'Hosting an event, a wedding or a business meeting?', desc: 'Ask for our catering menu and pricing.' }),
   ], [
     heading('Drinks', { first: true }),
-    ...item('Fountain soda', '3', '24 oz with unlimited refills · Pepsi, Diet Pepsi, Mountain Dew, Dr Pepper, Sierra Mist', {}),
-    desc('Also: iced tea, hot tea, coffee, milk, orange juice, water', { after: 110 }),
+    ...item('Fountain soda', '3.00', '24 oz with unlimited refills · Pepsi, Diet Pepsi, Mountain Dew, Dr Pepper, Sierra Mist', {}),
+    ...item('Tea, iced or hot', '2.50'), ...item('Orange juice', '3.00'), ...item('Milk', '3.00'),
+    desc('Also: coffee and water', { after: 110 }),
     note('Specialty drinks — ask for our drink menu', { after: 60 }),
     heading('Beer'),
     beerTable,
@@ -325,4 +330,4 @@ const doc = new Document({
     },
   ],
 });
-Packer.toBuffer(doc).then((b) => { fs.writeFileSync(OUT, b); console.log('wrote', OUT, b.length); });
+Packer.toBuffer(doc).then((b) => { fs.mkdirSync(path.dirname(OUT), { recursive: true }); fs.writeFileSync(OUT, b); console.log('wrote', OUT, b.length); });

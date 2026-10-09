@@ -1,4 +1,5 @@
-// "How to update the menu" — a one-to-two page guide for diner staff.
+// "How to update the menu" — a two-page guide for diner staff.
+// usage (from the repo root): node tools/word/howto.js "word/How to update the menu.docx"
 const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, LevelFormat, AlignmentType, BorderStyle } = require('docx');
 const OUT = process.argv[2];
