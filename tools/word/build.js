@@ -257,7 +257,7 @@ const page5 = [
     ...item('12 oz KC Strip', '26'),
     feature('maroon', { label: 'Last Friday & Saturday of the month', name: 'Prime Rib', price: '26', desc: 'With two sides and a dinner roll', size: 39 }),
   ], [
-    heading('Homemade Soup', { first: true }), note("Seasonal — today's soups are posted on the specials board"),
+    heading('Homemade Soup', { first: true }), note("Today's soups are posted on the specials board"),
     ...item('Cup', '4'), ...item('Bowl', '6'),
     heading('Salads'),
     ...item('Chef', 'half 9 · full 12', 'Ham, turkey, tomatoes, cheddar, hard-boiled egg'),
