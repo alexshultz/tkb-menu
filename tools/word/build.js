@@ -202,7 +202,7 @@ const page3 = [
   box(item('Sampler — pick any 3', '13', null, { tab: TEXT_W - px(32) - 20 }), TEXT_W, 'outline'),
   spacer(160),
   grid(apps.map(([n, p]) => item(n, p, null, { size: 27 }).map((x) => x))),
-  heading('Sandwiches'), note('Served with fries · substitute any side +2'),
+  heading('Sandwiches'), note('Served with fries · swap for another side +2 · sweet potato fries or an appetizer +4 · loaded baked potato +5'),
   columns([
     label('Deli Classics'),
     ...item('BLT', 'half 9 · full 11', 'Wheat, bacon, lettuce, tomato, mayo'),
@@ -229,7 +229,7 @@ const burgers = [
 const chip = (t, p) => [run(t + ' ', { font: F.medium, size: 20, color: C.ink }), run(p, { font: F.semi, size: 20, color: C.maroon }), run('     ', { size: 20 })];
 const page4 = [
   kicker(), title('Burgers & Baskets'),
-  heading('Burgers', { first: true }), note('Served with fries · substitute any side +2', { after: 100 }),
+  heading('Burgers', { first: true }), note('Served with fries · swap your fries below', { after: 100 }),
   P([run('Add   ', { font: F.semi, size: 18, color: C.teal, caps: true, spacing: 36 }), ...chip('Cheese', '+1'), ...chip('Peppers or jalapeños', '+1'), ...chip('Bacon', '+2'), ...chip('Extra patty', '+3')], { after: 160 }),
   feature('ink', { name: 'The Black Squirrel', price: '14', desc: 'Bacon jam, muenster & gouda, Nutella', size: 33 }, TEXT_W),
   spacer(160),
@@ -242,7 +242,7 @@ const page4 = [
     item('Shrimp', '15', '8 butterfly shrimp and fries'),
     item('CBR Wrap', '12', 'Crispy or grilled chicken, bacon, ranch, cheese, lettuce, tomato'),
   ]),
-  fullDivider([run('Swap your fries (+2): ', { font: F.semi, size: 20, color: C.ink }), run('veggie of the day, baked potato, loaded baked potato, sweet potato fries, mashed potatoes & gravy, side salad, seasonal salad, cup of soup or an appetizer', { size: 20, color: C.inkSoft })]),
+  fullDivider([run('Swap your fries +2: ', { font: F.semi, size: 20, color: C.ink }), run('veggie of the day, baked potato, mashed potatoes & gravy, side salad, seasonal salad or cup of soup · ', { size: 20, color: C.inkSoft }), run('+4: ', { font: F.semi, size: 20, color: C.ink }), run('sweet potato fries or an appetizer · ', { size: 20, color: C.inkSoft }), run('+5: ', { font: F.semi, size: 20, color: C.ink }), run('loaded baked potato', { size: 20, color: C.inkSoft })]),
 ];
 
 const page5 = [
