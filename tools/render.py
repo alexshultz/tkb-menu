@@ -9,8 +9,10 @@ Usage, from the repo root:
         design/Starters.dc.html design/Burgers.dc.html design/Dinner.dc.html design/Kids.dc.html
 
 For every page it reports:
-  - "needs N px of 1056": the height the content needs. Over 1056 means the page is
+  - "needs N px of H": the height the content needs, against the artboard height (1056 for
+    Letter, 816 for a half-letter card, 384 for a 4x6 card). Over H means the page is
     overfull; cut or move items, never shrink the type.
+Each PDF page takes the size of its artboard, so Letter pages and cards can share one file.
   - "EDGE": anything printed inside the printer's 1/4in (24px) dead zone.
 
 Pictures the pages load from the canvas asset store (/_blob/<id>) are mapped to the repo
@@ -28,6 +30,7 @@ BLOBS = {
     "ea027bf410aeb5870851acef4f79a9db": REPO / "assets/seasonal/art/tkb-halloween-logo-print.png",
     "2abc776de8bc8d9254c318631aca7628": REPO / "assets/seasonal/art/tkb-thanksgiving-logo-print.png",
     "fe620ff1479fda4324bf3a8f10c4d003": REPO / "assets/seasonal/art/tkb-christmas-logo-print.png",
+    "dd3255d84adfb3935a72f660f4858116": REPO / "assets/logos/tkb-logo-white.png",
 }
 BLOBS.update({k: pathlib.Path(v) for k, v in (pair.split("=", 1) for pair in os.environ.get("EXTRA_BLOBS", "").split(";") if "=" in pair)})
 SAFE_PX = 24  # 1/4 inch at 96 px/in
@@ -45,9 +48,11 @@ def to_html(src: str) -> str:
         body = body.replace(f"/_blob/{bid}", p.as_uri())
     links = "\n".join(f'<link rel="stylesheet" href="{(TOOLS / "node_modules/@fontsource" / f).as_uri()}">' for f in FONT_CSS)
     return f"""<!doctype html><html><head><meta charset="utf-8">{links}
-<style>@page{{size:8.5in 11in;margin:0}} html,body{{margin:0;padding:0}} {styles}</style></head>
+<style>@page{{margin:0}} html,body{{margin:0;padding:0}} {styles}</style></head>
 <body>{body}</body></html>"""
 
+
+SIZE_JS = "() => { const r = document.body.firstElementChild; return [r.offsetWidth, r.offsetHeight]; }"
 
 NEEDS_JS = """() => { const r = document.body.firstElementChild;
   const kids = [...r.children]; const prev = kids.map(k => k.style.flexShrink);
@@ -55,7 +60,8 @@ NEEDS_JS = """() => { const r = document.body.firstElementChild;
   kids.forEach((k, i) => k.style.flexShrink = prev[i]); return need; }"""
 
 EDGE_JS = """(z) => { const r = document.body.firstElementChild; const out = [];
-  const bad = b => b.width && b.height && (b.left < z || b.top < z || b.right > 816 - z || b.bottom > 1056 - z);
+  const W = r.offsetWidth, H = r.offsetHeight;
+  const bad = b => b.width && b.height && (b.left < z || b.top < z || b.right > W - z || b.bottom > H - z);
   const fmt = (t, b) => t + ' ' + Math.round(b.left) + ',' + Math.round(b.top) + ' ' + Math.round(b.right) + ',' + Math.round(b.bottom);
   r.querySelectorAll('*').forEach(e => { const tag = e.tagName.toLowerCase();
     if (e.closest('svg') && tag !== 'svg') return;
@@ -86,12 +92,13 @@ def main():
             pg.goto(tmp.as_uri())
             pg.wait_for_load_state("networkidle")
             pg.evaluate("document.fonts.ready")
+            w, h = pg.evaluate(SIZE_JS)
             need = pg.evaluate(NEEDS_JS)
-            print(f"{name}: needs {need}px of 1056" + ("  OVERFULL" if need > 1056 else ""))
+            print(f"{name}: {w / 96:g} x {h / 96:g} in, needs {need}px of {h}" + ("  OVERFULL" if need > h else ""))
             for e in pg.evaluate(EDGE_JS, SAFE_PX)[:5]:
                 print(f"  EDGE {name}: {e} is within {SAFE_PX}px of the paper edge")
             pdf = WORK / f"page{i}.pdf"
-            pg.pdf(path=str(pdf), width="8.5in", height="11in", print_background=True,
+            pg.pdf(path=str(pdf), width=f"{w}px", height=f"{h}px", print_background=True,
                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"})
             for page in PdfReader(str(pdf)).pages:
                 writer.add_page(page)

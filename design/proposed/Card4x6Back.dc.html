@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>4x6 card back · Build Your Drink</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&amp;family=Zilla+Slab:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.band{height:16px;margin:28px 28px 0;flex-shrink:0;background:conic-gradient(#A3302F 25%,#FFFFFF 0 50%,#A3302F 0 75%,#FFFFFF 0) 0 0/16px 16px}
+.bandb{height:16px;margin:0 28px 28px;flex-shrink:0;background:conic-gradient(#A3302F 25%,#FFFFFF 0 50%,#A3302F 0 75%,#FFFFFF 0) 0 0/16px 16px}
+.kicker{font:600 12px/1 'Libre Franklin',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#2E6A68}
+.title{margin:0;font:700 54px/1 'Zilla Slab',serif;color:#8A2A2B}
+.sec{margin:0;font:700 23px/1.1 'Zilla Slab',serif;color:#2A1E18;display:flex;align-items:center;gap:12px}
+.sec::after{content:"";flex:1;height:2px;background:#2A1E18}
+.note{font:italic 400 13px/1.4 'Libre Franklin',sans-serif;color:#5A4636}
+.nm{font:600 18px/1.2 'Zilla Slab',serif}
+.ds{font:400 13px/1.4 'Libre Franklin',sans-serif;color:#4E3D31}
+.li{font:500 15px/1.3 'Libre Franklin',sans-serif;color:#2A1E18}
+.lbl{font:600 12px/1 'Libre Franklin',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#2E6A68}
+.lblm{font:600 12px/1 'Libre Franklin',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8A2A2B}
+.sf{font:700 11px/1 'Libre Franklin',sans-serif;letter-spacing:.06em;color:#2E6A68;border:1.5px solid #2E6A68;border-radius:4px;padding:1px 3px;vertical-align:1px}
+.box{display:inline-block;width:13px;height:13px;border:1.5px solid #2A1E18;border-radius:3px;vertical-align:-2px;margin-right:7px;box-sizing:border-box}
+.foot{display:flex;justify-content:space-between;font:500 12px/1 'Libre Franklin',sans-serif;color:#5A4636;border-top:1.5px solid #2A1E18;padding-top:10px}
+</style>
+<style>
+.ck{font:500 12px/1.25 'Libre Franklin',sans-serif;color:#2A1E18;white-space:nowrap}
+.ck .box{width:11px;height:11px;margin-right:5px;vertical-align:-1px;border-width:1.3px}
+.st{display:flex;align-items:baseline;gap:7px}
+.stn{font:700 17px/1 'Zilla Slab',serif;color:#8A2A2B}
+.stt{font:600 14px/1 'Zilla Slab',serif;color:#2A1E18}
+.stx{font:italic 400 12px/1 'Libre Franklin',sans-serif;color:#5A4636}
+.cband{height:10px;margin:24px 24px 0;flex-shrink:0;background:conic-gradient(#A3302F 25%,#FFFFFF 0 50%,#A3302F 0 75%,#FFFFFF 0) 0 0/10px 10px}
+</style>
+</helmet>
+<div style="width: 576px; height: 384px; box-sizing: border-box; background: #FFFFFF; color: #2A1E18; font-family: 'Libre Franklin', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+<div class="cband"></div>
+<div style="flex-grow:1;display:flex;flex-direction:column;gap:3px;padding:5px 24px 24px">
+<div style="display:flex;align-items:baseline;justify-content:space-between"><h1 class="title" style="font-size:22px">Build Your Drink</h1><div class="kicker" style="font-size:12px;letter-spacing:.16em">TKB Diner</div></div>
+<div class="st"><span class="stn">1</span><span class="stt">Pick a drink and size</span><span style="flex:1"></span><span class="ck"><span class="box"></span>12 oz, hot</span><span class="ck"><span class="box"></span>16 oz</span><span class="ck"><span class="box"></span>20 oz</span><span class="ck"><span class="box"></span>32 oz, iced</span></div>
+<div style="display:flex;align-items:baseline;gap:6px;border-radius:6px;padding:1px 8px;background:#F7DEDA"><span class="lbl" style="font-size:11px;letter-spacing:.14em;width:30px;color:#8A2A2B">Hot</span><span class="ck"><span class="box"></span>Latte</span><span class="ck"><span class="box"></span>Macchiato</span><span class="ck"><span class="box"></span>Americano</span></div><div style="display:flex;align-items:baseline;gap:6px;border-radius:6px;padding:1px 8px;background:#DCE8F3"><span class="lbl" style="font-size:11px;letter-spacing:.14em;width:30px;color:#2F5D86">Iced</span><span class="ck"><span class="box"></span>Latte</span><span class="ck"><span class="box"></span>Macchiato</span><span class="ck"><span class="box"></span>Americano</span><span class="ck"><span class="box"></span>Shaken espresso</span><span class="ck"><span class="box"></span>Cold brew</span><span class="ck"><span class="box"></span>Frappe</span></div>
+<div class="st"><span class="stn">2</span><span class="stt">Pick your add-ins</span><span class="stx">3 included · extras +1.25 each</span></div>
+<div style="display:grid;grid-template-columns:145px 125px 100px 146px;column-gap:4px"><div style="display:flex;flex-direction:column;gap:2px"><div class="ck"><span class="box"></span>Almond</div><div class="ck"><span class="box"></span>Apple</div><div class="ck"><span class="box"></span>Banana</div><div class="ck"><span class="box"></span>Blue raspberry</div><div class="ck"><span class="box"></span>Blueberry</div><div class="ck"><span class="box"></span>Brown sugar cinnamon</div><div class="ck"><span class="box"></span>Butter pecan</div></div><div style="display:flex;flex-direction:column;gap:2px"><div class="ck"><span class="box"></span>Chai</div><div class="ck"><span class="box"></span>Cherry</div><div class="ck"><span class="box"></span>Cinnamon</div><div class="ck"><span class="box"></span>Coconut</div><div class="ck"><span class="box"></span>Crème de menthe</div><div class="ck"><span class="box"></span>English toffee</div><div class="ck"><span class="box"></span>French vanilla</div></div><div style="display:flex;flex-direction:column;gap:2px"><div class="ck"><span class="box"></span>Hazelnut</div><div class="ck"><span class="box"></span>Honey</div><div class="ck"><span class="box"></span>Irish cream</div><div class="ck"><span class="box"></span>Lavender</div><div class="ck"><span class="box"></span>Peach</div><div class="ck"><span class="box"></span>Peanut butter</div><div class="ck"><span class="box"></span>Peppermint</div></div><div style="display:flex;flex-direction:column;gap:2px"><div class="ck"><span class="box"></span>Raspberry</div><div class="ck"><span class="box"></span>Rose</div><div class="ck"><span class="box"></span>Salted caramel</div><div class="ck"><span class="box"></span>Strawberry</div><div class="ck"><span class="box"></span>Toasted marshmallow</div><div class="ck"><span class="box"></span>Vanilla</div><div class="ck"><span class="box"></span>White chocolate</div></div></div>
+<div style="display:grid;grid-template-columns:145px 125px 100px 146px;column-gap:4px;row-gap:2px"><div class="ck"><span class="box"></span>Caramel sauce</div><div class="ck"><span class="box"></span>Mocha sauce</div><div class="ck"><span class="box"></span>Oat milk</div><div class="ck"><span class="box"></span>White chocolate sauce</div><div class="ck"><span class="box"></span>Extra espresso shot</div><div class="ck"><span class="box"></span>Almond milk</div><div class="ck"><span class="box"></span>Cold foam</div></div>
+<div style="display:grid;grid-template-columns:145px 125px 100px 146px;column-gap:4px;row-gap:2px;align-items:baseline"><div class="lbl" style="font-size:11px;letter-spacing:.14em;align-self:center">Sugar-free</div><div class="ck"><span class="box"></span>Pumpkin pie</div><div class="ck"><span class="box"></span>Vanilla bean</div><div class="ck"><span class="box"></span>Brown sugar cinnamon</div><div></div><div class="ck"><span class="box"></span>White chocolate</div><div class="ck"><span class="box"></span>French vanilla</div></div>
+<div class="st"><span class="stn">3</span><span class="stt">Finish it</span><span class="ck"><span class="box"></span>Whipped cream</span><span class="ds" style="font-size:12px;flex:1;margin-left:14px;border-bottom:1.3px solid #2A1E18;padding-bottom:1px">Name</span></div>
+<div style="flex-grow:1"></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":576,"height":384}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

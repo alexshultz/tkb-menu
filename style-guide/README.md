@@ -15,7 +15,7 @@ Warm cream paper, dark brown ink, a confident slab-serif for names and prices, a
 - Plain and friendly. Say what is on the plate: "Ham, cheddar, potatoes, onions, peppers and two eggs". No adjectives the kitchen can't back up.
 - The one exception is a real point of pride, said once and specifically: "Breaded by hand in our kitchen and fried crisp and golden the moment you order."
 - **Item names** in Title Case, in `item-name`: "Western Burrito", "Bird's Nest", "The Black Squirrel". Keep the diner's own names exactly, including "Hobo" and "One Eyed Jack".
-- **Descriptions** in sentence case, in `description`, ingredients separated by commas with "and" before the last one. No serial comma, no full stop.
+- **Descriptions** in sentence case, in `description`, ingredients separated by commas, with a serial (Oxford) comma before the "and" or "or" that ends a list of three or more ("Ham, bacon, and sausage"; "Hot, iced, or frappe"). No full stop.
 - **Serving notes** go once under the section heading in italic `note` ("Served with fries · substitute any side +2"), not repeated on every item.
 - **Prices** are numbers only, no dollar sign. Whole dollars have no decimals ("11"). Use decimals only where the price has cents ("4.25", "3.50"); in a column of drink prices keep two decimals throughout.
 - **Half and full orders** are written "half 4 · full 7"; sizes the same way ("½ lb 18 · 1 lb 23", "cup 4 · bowl 6"). Never write a bare "4 / 7".

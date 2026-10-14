@@ -35,10 +35,13 @@ The canvas and the Word file are separate copies of the same content. Whoever ch
 | --- | --- |
 | `print/TKB-Diner-Menu.pdf` | The regular menu, print-ready. |
 | `print/seasonal/` | Print-ready PDFs of seasonal sets. |
+| `print/proposed/` | DRAFT proof prints of the proposed new menu and the coffee-bar drink cards (half-letter and 4×6). See the README there for how to print each. |
+| `fonts/` | The menu's two typefaces (Zilla Slab, Libre Franklin) as installable TrueType files, with their licenses. |
 | `word/TKB Diner Menu.docx` | Editable regular menu for Microsoft Word: prices on dot-leader tab stops, fonts embedded, drop-in cover picture and bands. |
 | `word/How to update the menu.docx` | Two-page guide for diner staff: editing items, swapping pictures, printing, fonts. |
 | `word/Pictures/` | Drop-in pictures for the Word file. `cover-regular.png` and `band-regular.png` are the everyday look; the others are seasonal. Every cover picture is a 620 × 575 px canvas and every band a 756 × 34 px canvas (transparent PNGs; covers stored at 2×, bands at 4× for sharp printing), so Change Picture swaps one for another in place. |
 | `design/` | Snapshot of the canvas: one `.dc.html` file per page plus `canvas.json` (artboard positions and canvas pages). The regular pages are `Main` (cover), `Breakfast`, `Starters`, `Burgers`, `Dinner`, `Kids`. Seasonal copies carry a one-letter prefix and the same page names. These files render inside the canvas editor or through `tools/render.py`, not as standalone web pages. |
+| `design/proposed/` | Snapshot of the canvas page "Proposed new menu (draft)": six menu pages and the two drink cards. |
 | `style-guide/` | The style guide: `README.md` (brand book for the regular menu), `holidays-and-events.md` (how to make a seasonal or event version), `print-and-files.md` (printing, files, open questions), `tokens.json` (every color, type style, spacing and size), `components.css` and `components/` (the building blocks and their rules). |
 | `assets/logos/` | The regular logo: `tkb-logo-print.png` (cleaned-up print version) and `original/`. |
 | `assets/bands/` | The checkerboard band as a standalone SVG. |
