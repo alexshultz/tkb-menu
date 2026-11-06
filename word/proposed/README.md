@@ -10,7 +10,11 @@ DRAFT, for the proposed new menu and the coffee-bar drink cards. The PDFs in `pr
 
 ## How these files work
 
-Every line of text is its own small text box, pinned to an exact spot on the page. The rules, dotted leaders, tinted boxes, checkerboard bands and cover art are one picture behind the text. That's why the layout can't shift: nothing flows from one line into the next.
+Every line of text is its own small text box, pinned to an exact spot on the page. The rules, dotted leaders and tinted boxes are one picture behind the text; the banner (in the header) and the cover art are separate pictures you can swap. That's why the layout can't shift: nothing flows from one line into the next.
+
+## Seasonal cover art and banner
+
+The banner is one picture in the page header, repeated on every page: double-click near the top of any page, right-click the banner, **Change Picture › From a File…**. The cover art is its own picture on page 1: right-click it, **Change Picture › From a File…**. Make new graphics at the exact sizes in the TKB Diner Menu Style & Graphics Guide (https://claude.ai/artifact/THgNSVYq9U8ZeRGbqSw16T), starting from the templates in `graphics/templates/`.
 
 ## Changing a price or a line
 

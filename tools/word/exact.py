@@ -17,7 +17,7 @@ Setup: npm install (in tools/), then python3 tools/word/exact_fonts.py
 usage: python3 tools/word/exact.py out.docx page.dc.html [page.dc.html ...]
 All pages in one file must share a size (Letter pages, or one card size).
 """
-import io, re, sys, uuid, zipfile, pathlib, html
+import io, re, sys, uuid, zipfile, pathlib, html, urllib.parse
 from playwright.sync_api import sync_playwright
 from fontTools.ttLib import TTFont
 
@@ -86,7 +86,15 @@ for (const [b, info] of blocks) {
       chars: cs.map(c => ({ ch: c.ch, top: c.top, h: c.h, s: c.style })) });
   }
 }
-return { w: R.width, h: R.height, lines: out };
+const rect = e => { const b = e.getBoundingClientRect(); return { x: b.left - R.left, y: b.top - R.top, w: b.width, h: b.height }; };
+const bands = [...root.querySelectorAll('*')].filter(e => getComputedStyle(e).backgroundImage.includes('conic-gradient')).map(rect);
+const imgs = [...root.querySelectorAll('img')].map(e => {
+  const r = rect(e), nw = e.naturalWidth, nh = e.naturalHeight, fit = getComputedStyle(e).objectFit;
+  let w = r.w, h = r.h;
+  if (fit === 'contain') { const k = Math.min(r.w / nw, r.h / nh); w = nw * k; h = nh * k; }
+  return { src: e.currentSrc || e.src, alt: e.alt, x: r.x + (r.w - w) / 2, y: r.y + (r.h - h) / 2, w, h };
+});
+return { w: R.width, h: R.height, lines: out, bands, imgs };
 }"""
 
 
@@ -127,14 +135,14 @@ class Doc:
         self.ids += 1
         return self.ids
 
-    def picture(self, png, w, h):
+    def picture(self, data, ext, x, y, w, h, title, descr, part="document", behind=True, locked=False):
         idx = len(self.media) + 1
-        name = f"image{idx}.png"
-        self.media.append((name, png))
+        name = f"image{idx}.{ext}"
+        self.media.append((name, data, part))
         rid = f"rIdImg{idx}"
         i = self.nid()
         cx, cy = round(w * EMU_PX), round(h * EMU_PX)
-        return f"""<w:r><w:drawing><wp:anchor distT="0" distB="0" distL="0" distR="0" simplePos="0" relativeHeight="{i}" behindDoc="1" locked="1" layoutInCell="1" allowOverlap="1"><wp:simplePos x="0" y="0"/><wp:positionH relativeFrom="page"><wp:posOffset>0</wp:posOffset></wp:positionH><wp:positionV relativeFrom="page"><wp:posOffset>0</wp:posOffset></wp:positionV><wp:extent cx="{cx}" cy="{cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/><wp:docPr id="{i}" name="Page art {i}" descr="Page background: rules, leaders, boxes and art"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="{i}" name="{name}"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="{rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:anchor></w:drawing></w:r>"""
+        return f"""<w:r><w:drawing><wp:anchor distT="0" distB="0" distL="0" distR="0" simplePos="0" relativeHeight="{i}" behindDoc="{int(behind)}" locked="{int(locked)}" layoutInCell="1" allowOverlap="1"><wp:simplePos x="0" y="0"/><wp:positionH relativeFrom="page"><wp:posOffset>{round(x * EMU_PX)}</wp:posOffset></wp:positionH><wp:positionV relativeFrom="page"><wp:posOffset>{round(y * EMU_PX)}</wp:posOffset></wp:positionV><wp:extent cx="{cx}" cy="{cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/><wp:docPr id="{i}" name="{esc(title)}" descr="{html.escape(descr)}"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="{i}" name="{name}"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="{rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:anchor></w:drawing></w:r>"""
 
     def textbox(self, line, page_w):
         runs, maxasc, maxdesc, baseline = [], 0, 0, None
@@ -208,7 +216,7 @@ def obfuscate(data, guid):
 
 def build(out, pages):
     doc = Doc()
-    bodies, size = [], None
+    bodies, size, banner = [], None, None
     WORK.mkdir(exist_ok=True)
     with sync_playwright() as p:
         br = p.chromium.launch()
@@ -227,16 +235,46 @@ def build(out, pages):
             pg = br.new_page(viewport={"width": int(w), "height": int(h)}, device_scale_factor=DPI / 96)
             pg.goto(tmp.as_uri()); pg.wait_for_load_state("networkidle"); pg.evaluate("document.fonts.ready")
             pg.add_style_tag(content="*{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important}")
-            png = pg.screenshot(clip={"x": 0, "y": 0, "width": w, "height": h})
+            # the banner: one picture in the page header, shared by every page
+            bands = data["bands"]
+            if len(bands) > 1:
+                sys.exit(f"{f}: {len(bands)} checkerboard banners; the header holds one")
+            if bands:
+                b = {k: round(v, 2) for k, v in bands[0].items()}
+                if banner is None:
+                    banner = (b, pg.screenshot(clip={"x": b["x"], "y": b["y"], "width": b["w"], "height": b["h"]}))
+                elif banner[0] != b:
+                    sys.exit(f"{f}: banner at {b}, but the first page has it at {banner[0]}; they must match")
+            pg.add_style_tag(content="img{visibility:hidden!important}")
+            pg.evaluate("""() => document.querySelectorAll('*').forEach(e => { if (getComputedStyle(e).backgroundImage.includes('conic-gradient')) e.style.visibility = 'hidden'; })""")
+            # transparent where the paper is white, so the header banner shows through in Word
+            # (Word draws header content underneath the page's own behind-text pictures)
+            pg.evaluate("() => { document.documentElement.style.background = 'transparent'; document.body.style.background = 'transparent'; document.body.firstElementChild.style.background = 'transparent'; }")
+            png = pg.screenshot(clip={"x": 0, "y": 0, "width": w, "height": h}, omit_background=True)
             pg.close()
+            parts = [doc.picture(png, "png", 0, 0, w, h, "Page art", "Page background: rules, leaders, boxes. Not editable.", locked=True)]
+            for im in data["imgs"]:
+                src = pathlib.Path(urllib.parse.unquote(urllib.parse.urlparse(im["src"]).path))
+                ext = src.suffix.lstrip(".").lower().replace("jpg", "jpeg")
+                parts.append(doc.picture(src.read_bytes(), ext, im["x"], im["y"], im["w"], im["h"], "Cover art",
+                                         "Seasonal cover art. Right-click > Change Picture to swap it."))
             lines = sorted(data["lines"], key=lambda l: (l["align"] == "right", l["order"]))
-            parts = [doc.picture(png, w, h)] + [doc.textbox(l, w) for l in lines]
+            parts += [doc.textbox(l, w) for l in lines]
             brk = '<w:r><w:br w:type="page"/></w:r>' if i < len(pages) - 1 else ""
             bodies.append(f'<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/><w:rPr><w:sz w:val="2"/></w:rPr></w:pPr>{"".join(parts)}{brk}</w:p>')
             print(f"{pathlib.Path(f).name}: {len(lines)} text lines")
         br.close()
     W, H = round(size[0] * 15), round(size[1] * 15)
-    sect = f'<w:sectPr><w:pgSz w:w="{W}" w:h="{H}"{" w:orient=\"landscape\"" if W > H else ""}/><w:pgMar w:top="0" w:right="0" w:bottom="0" w:left="0" w:header="0" w:footer="0" w:gutter="0"/><w:cols w:space="0"/></w:sectPr>'
+    header_ref, header_xml = "", None
+    if banner:
+        b, png = banner
+        pic = doc.picture(png, "png", b["x"], b["y"], b["w"], b["h"], "Banner",
+                          "Banner, repeated on every page. Double-click the top of any page, then right-click > Change Picture.",
+                          part="header1", behind=False)
+        header_xml = (f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<w:hdr {NS}><w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/>'
+                      f'<w:rPr><w:sz w:val="2"/></w:rPr></w:pPr>{pic}</w:p></w:hdr>')
+        header_ref = '<w:headerReference w:type="default" r:id="rIdH1"/>'
+    sect = f'<w:sectPr>{header_ref}<w:pgSz w:w="{W}" w:h="{H}"{" w:orient=\"landscape\"" if W > H else ""}/><w:pgMar w:top="0" w:right="0" w:bottom="0" w:left="0" w:header="0" w:footer="0" w:gutter="0"/><w:cols w:space="0"/></w:sectPr>'
     document = f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<w:document {NS}><w:body>{"".join(bodies)}{sect}</w:body></w:document>'
 
     font_xml, font_rels, font_files = [], [], []
@@ -248,21 +286,29 @@ def build(out, pages):
         font_xml.append(f'<w:font w:name="{name}"><w:charset w:val="00"/><w:family w:val="auto"/><w:pitch w:val="variable"/><w:embedRegular r:id="rIdF{j}" w:fontKey="{guid}"/></w:font>')
 
     files = {
-        "[Content_Types].xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>',
+        "[Content_Types].xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="jpeg" ContentType="image/jpeg"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>',
         "_rels/.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>',
         "docProps/core.xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:title>TKB Diner</dc:title><dc:creator>TKB Diner</dc:creator></cp:coreProperties>',
         "word/_rels/document.xml.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdS" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rIdSet" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/><Relationship Id="rIdFT" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>'
-            + "".join(f'<Relationship Id="rIdImg{k}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/{n}"/>' for k, (n, _) in enumerate(doc.media, 1)) + "</Relationships>",
+            + "".join(f'<Relationship Id="rIdImg{k}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/{n}"/>' for k, (n, _, part) in enumerate(doc.media, 1) if part == "document")
+            + ('<Relationship Id="rIdH1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/header" Target="header1.xml"/>' if header_xml else "") + "</Relationships>",
         "word/styles.xml": f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<w:styles {NS}><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Libre Franklin" w:hAnsi="Libre Franklin" w:cs="Libre Franklin"/><w:kern w:val="2"/><w14:ligatures w14:val="standard"/><w:sz w:val="20"/><w:lang w:val="en-US"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>',
         "word/settings.xml": f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<w:settings {NS}><w:embedTrueTypeFonts/><w:defaultTabStop w:val="720"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>',
         "word/fontTable.xml": f'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<w:fonts {NS}>{"".join(font_xml)}</w:fonts>',
         "word/_rels/fontTable.xml.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + "".join(font_rels) + "</Relationships>",
         "word/document.xml": document,
     }
+    if header_xml:
+        files["word/header1.xml"] = header_xml
+        files["word/_rels/header1.xml.rels"] = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            + "".join(f'<Relationship Id="rIdImg{k}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/{n}"/>' for k, (n, _, part) in enumerate(doc.media, 1) if part == "header1")
+            + "</Relationships>")
+    else:
+        files["[Content_Types].xml"] = files["[Content_Types].xml"].replace('<Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/>', "")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for n, t in files.items():
             z.writestr(n, t)
-        for n, b in doc.media:
+        for n, b, _ in doc.media:
             z.writestr(f"word/media/{n}", b)
         for n, b in font_files:
             z.writestr(n, b)
