@@ -4,3 +4,4 @@ tools/.render/
 word/build/
 tools/word/fonts/
 tools/word/fonts-exact/
+__pycache__/
