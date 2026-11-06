@@ -36,6 +36,7 @@ The canvas and the Word file are separate copies of the same content. Whoever ch
 | `print/TKB-Diner-Menu.pdf` | The regular menu, print-ready. |
 | `print/seasonal/` | Print-ready PDFs of seasonal sets. |
 | `print/proposed/` | DRAFT proof prints of the proposed new menu and the coffee-bar drink cards (half-letter and 4×6). See the README there for how to print each. |
+| `word/proposed/` | DRAFT editable Word files for the proposed menu and drink cards. Every line is pinned in place, so they match the PDFs exactly. Built by `tools/word/build-exact.sh`. |
 | `fonts/` | The menu's two typefaces (Zilla Slab, Libre Franklin) as installable TrueType files, with their licenses. |
 | `word/TKB Diner Menu.docx` | Editable regular menu for Microsoft Word: prices on dot-leader tab stops, fonts embedded, drop-in cover picture and bands. |
 | `word/How to update the menu.docx` | Two-page guide for diner staff: editing items, swapping pictures, printing, fonts. |

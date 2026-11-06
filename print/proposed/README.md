@@ -1,6 +1,8 @@
 # Proposed menu: proof prints
 
-DRAFT for review. These are the "Proposed new menu (draft)" page of the design canvas, rendered for printing and passing around. They are not the live menu; `print/TKB-Diner-Menu.pdf` still is. Sources are in `design/proposed/`.
+DRAFT for review. These are the "Proposed new menu (draft)" page of the design canvas, rendered for printing and passing around. They are not the live menu; `print/TKB-Diner-Menu.pdf` still is.
+
+These PDFs are made from the Word files in `word/proposed/`, page for page, so a PDF and its Word file always match. To change a price, edit the Word file and save it as PDF from Word (see the README there). The designs come from `design/proposed/`.
 
 Every font is embedded in these PDFs, so nothing needs installing to print them. Print at **100% / Actual size** (not "Fit to page"), with no scaling.
 
