@@ -31,6 +31,7 @@ BLOBS = {
     "2abc776de8bc8d9254c318631aca7628": REPO / "assets/seasonal/art/tkb-thanksgiving-logo-print.png",
     "fe620ff1479fda4324bf3a8f10c4d003": REPO / "assets/seasonal/art/tkb-christmas-logo-print.png",
     "dd3255d84adfb3935a72f660f4858116": REPO / "assets/logos/tkb-logo-white.png",
+    "687ecb1233d4e7ae291217c50423b3b7": REPO / "assets/logos/tkb-logo-white-lifted.png",
 }
 BLOBS.update({k: pathlib.Path(v) for k, v in (pair.split("=", 1) for pair in os.environ.get("EXTRA_BLOBS", "").split(";") if "=" in pair)})
 SAFE_PX = 24  # 1/4 inch at 96 px/in

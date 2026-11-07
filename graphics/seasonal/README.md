@@ -10,4 +10,4 @@ then convert `out.docx` to PDF (LibreOffice: `soffice --headless --convert-to pd
 
 | Season | Source |
 | --- | --- |
-| Thanksgiving | Banner pattern from `assets/seasonal/bands/band-thanksgiving.svg`, redrawn 16 px tall on white; cover art from `assets/seasonal/art/tkb-thanksgiving-logo-print.png`, centered on a transparent frame of the cover's shape |
+| Thanksgiving | Cover art only: `cover-art-thanksgiving-black-1479x1191.png`, from Alex's edited `tkb_squirrels_thanksgiving.psd` (Nov 2026), centered on a transparent frame of the cover's shape. Seasonal editions keep the regular checkerboard banner; only the cover art changes. |
