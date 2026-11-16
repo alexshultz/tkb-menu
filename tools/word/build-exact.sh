@@ -10,6 +10,7 @@ O=print/proposed
 mkdir -p "$W" "$O"
 python3 tools/word/exact.py "$W/TKB Diner Menu - proposed.docx" \
   $P/PCover.dc.html $P/PBreakfast.dc.html $P/DStarters.dc.html $P/DBurgers.dc.html $P/DDinner.dc.html $P/DDrinks.dc.html
+python3 tools/word/exact.py "$W/TKB Diner Takeout Menu.docx" $P/ToGoFront.dc.html $P/ToGoBack.dc.html
 python3 tools/word/exact.py "$W/Drink Card - half letter.docx" $P/DSeasonalDrinks.dc.html $P/DDrinkCardBack.dc.html
 python3 tools/word/exact.py "$W/Drink Card - 4x6.docx" $P/Card4x6Front.dc.html $P/Card4x6Back.dc.html
 T=$(mktemp -d)
@@ -17,6 +18,7 @@ for f in "$W"/*.docx; do soffice --headless --convert-to pdf --outdir "$T" "$f" 
 cp "$T/TKB Diner Menu - proposed.pdf" "$O/TKB-Diner-Menu-PROPOSED.pdf"
 cp "$T/Drink Card - half letter.pdf" "$O/Drink-Card-half-letter.pdf"
 cp "$T/Drink Card - 4x6.pdf" "$O/Drink-Card-4x6.pdf"
+cp "$T/TKB Diner Takeout Menu.pdf" "$O/TKB-Diner-Takeout-Menu.pdf"
 rm -rf "$T"
 python3 - <<'PY'
 from pypdf import PdfReader, PdfWriter, Transformation, PageObject
